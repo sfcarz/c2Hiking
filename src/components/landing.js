@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { Grid, Typography, TextField, Button } from '@material-ui/core';
 import '../App.css';
@@ -18,15 +18,26 @@ const useStyles = makeStyles({
   }
 })
 
+
 export default function First() {
 
   const classes = useStyles()
 
-  const success = (position) => {
-  console.log(position);
+  function onSuccess(position) {
+    console.log(position);
+    console.log('is this working');
   }
-  
-  navigator.geolocation.getCurrentPosition(success)
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      console.log('you can geolocate');
+      navigator.geolocation.getCurrentPosition(onSuccess);
+    }
+  }, [])
+
+  const success = () => {
+  console.log('click works');
+  }
 
   return (
     <Grid item xl={4} lg={4} md={6} sm={8} xs={10}>
@@ -40,6 +51,7 @@ export default function First() {
         <form>
           <TextField noValidate label='Search City' className='mt-5' />
           <Button
+            onClick={success}
             variant='contained' className={classes.second}>Search</Button>
         </form>
         </div>

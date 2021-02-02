@@ -18,7 +18,16 @@ const useStyles = makeStyles({
 })
 
 function App() {
-
+  const test = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(getPosition);
+    }
+    function getPosition(position) {
+      console.log(position.coords.latitude, position.coords.longitude);
+    }
+  }
+  
+  console.log(test);
   const classes = useStyles()
 
   return (
